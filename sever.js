@@ -1,6 +1,6 @@
 import express from "express";
-import { fileURLToPath } from 'url';
-import { dirname, join } from 'path'; // Import required functions from the path module
+
+import path from 'path'; // Import required functions from the path module
 const app = express();
 import cors from "cors";
 import databaseConnect from "./config/db.js";
@@ -19,11 +19,12 @@ app.use("/api/v1/product", productRoutes);
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Use __dirname to construct paths
-app.use(express.static(join(__dirname, "client/dist")));
-app.get("*", (req, res) => {
-  res.sendFile(join(__dirname, "client/dist/index.html"));
-});
+
+
+  //*Set static folder up in production
+  app.use(express.static('client/build'));
+
+  app.get('*', (req,res) => res.sendFile(path.resolve(__dirname, 'client', 'build','index.html')));
 
 const port = process.env.PORT || 5050;
 app.listen(port, () => {
