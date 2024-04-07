@@ -1,12 +1,13 @@
 import express from "express";
 
-import path from 'path'; // Import required functions from the path module
+import path, { dirname } from 'path'; // Import required functions from the path module
 const app = express();
 import cors from "cors";
 import databaseConnect from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
+import { fileURLToPath } from "url";
 
 databaseConnect();
 app.use(express.json());
@@ -22,7 +23,7 @@ const __dirname = dirname(__filename);
 
 
   //*Set static folder up in production
-  app.use(express.static('client/build'));
+  app.use(express.static('client/dist'));
 
   app.get('*', (req,res) => res.sendFile(path.resolve(__dirname, 'client', 'build','index.html')));
 
