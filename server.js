@@ -25,7 +25,7 @@ const __dirname = dirname(__filename);
   //*Set static folder up in production
   app.use(express.static('client/dist'));
 
-  app.get('*', (req,res) => res.sendFile(path.resolve(__dirname, 'client', 'build','index.html')));
+  app.get('*', (req,res) => res.sendFile(path.resolve(__dirname, 'client', 'dist','index.html')));
 
 const port = process.env.PORT || 5050;
 app.listen(port, () => {
